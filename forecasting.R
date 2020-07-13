@@ -21,7 +21,7 @@ library("cowplot")
 library(ggthemes)
 #par(mfrow=c(1,2))  
 #penjualan dengan tanggal transaksi
-viz1 <- ggplot(data=dataset)+
+ggplot(data=dataset)+
   geom_smooth(mapping=aes(x=date, y=qty))
 #penjualan dengan harga
 viz2 <- ggplot(dataset,aes(x = Price,y = qty, color=Store)) + geom_point() +
@@ -36,10 +36,10 @@ viz4 <- ggplot(dataset,aes(x = promo_item,y = qty, color = promo_item)) + geom_p
 #penjualan dengan promo card
 viz5 <- ggplot(dataset,aes(x = promo_card,y = qty, color = promo_card)) + geom_point() +
   scale_color_discrete(name="") + theme(legend.position="top")
-plot_grid(viz2, viz3, viz4,viz5,labels = "AUTO")
+plot_grid(viz2, viz3,labels = "AUTO")
 
 ggplot(data=dataset)+
-  geom_smooth(mapping=aes(x=date, y=qty, color= promo_card)) +
+  geom_point(mapping=aes(x=date, y=qty, color= promo_card)) +
   theme_few() +
   xlab("Date") +
   ylab("Qty") +
@@ -51,25 +51,31 @@ ggplot(data=dataset)+
   theme_few() +
   xlab("Date") +
   ylab("Qty") +
-  facet_wrap(~Store) + 
+  #facet_wrap(~Store) + 
   scale_fill_discrete(name = "promo_item")
 
 ggplot(data=dataset)+
   geom_point(mapping=aes(x=Price, y=qty, color= promo_item)) + 
   theme_few() +
-  xlab("Date") +
+  xlab("Price") +
   ylab("Qty") +
-  facet_wrap(~Store) + 
+  #facet_wrap(~Store) + 
   scale_fill_discrete(name = "promo_item")
 
 ggplot(data=dataset)+
   geom_point(mapping=aes(x=Price, y=qty, color= promo_card)) + 
   theme_few() +
-  xlab("Date") +
+  xlab("Price") +
   ylab("Qty") +
-  facet_wrap(~Store) + 
+  #facet_wrap(~Store) + 
   scale_fill_discrete(name = "promo_card")
-
+group_by(df$Store)
+df <-dataset[order(dataset$qty,dataset$date,decreasing = T),]
+head(df,10)
+head(df[which(df$promo_item==1 & df$promo_card==0),],10)
+View(df)
+#df %>% mutate(year=format(as.Date(df$date, format="%d/%m/%Y"),"%Y")) %>% group_by(year,qty)
+df %>% sort(date)
 ##penjualan terbanyak di toko
 library("dplyr")
 TA<- filter(dataset, dataset$Store=='ta')
@@ -106,7 +112,25 @@ p <- ggplot() +
               size=1) +
   labs(title = "Total Penjualan") + scale_colour_manual(name="legend", values=c("blue", "red", "green"))
 p
+#apakah harga mempengaruhi penjualan
 
+#apakah promo_item and promo_card mempengaruhi transaksi yang sukses
+data_sales <- dataset[1:2397,c("promo_item","promo_card","qty")]
+hist(data_sales$qty)
+median(data_sales$qty)
+#1=high transaction, 0=low
+data_sales$transaction <- ifelse(data_sales$qty>median(data_sales$qty),"1","0")
+data_sales$transaction <- as.factor(data_sales$transaction)
+summary(data_sales)
+table(data_sales$transaction, data_sales$promo_card)
+xtabs(~transaction + promo_item, data = data_sales)
+#
+modeling <- glm(transaction ~ promo_item+promo_card , data = data_sales, family = "binomial") #Regresi Logisitik Biner
+summary(modeling)
+chisq.test(data_sales$transaction,data_sales$promo_item,correct=FALSE)
+chisq.test(data_sales$transaction,data_sales$promo_card,correct=FALSE)
+ggplot() + geom_point(data=data_sales, aes(x=promo_card, y=qty,
+                            colour=transaction), fill="red", size=1)
 ## forcast
 library(forecast)
 library(ggfortify)
@@ -125,7 +149,7 @@ library(highcharter)
 options(highcharter.theme = hc_theme_smpl(tooltip = list(valueDecimals = 2)))
 result_pred <- forecast(Fit, h=15*3, xreg=fourierf(data.train,4,15*3))
 result_pred
-
+hchart(result_pred)
 # 
 library(gganimate)
 library(png)
