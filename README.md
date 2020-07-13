@@ -20,39 +20,56 @@ These results can be used to determine good strategies to increase sales.
 
 <h2>Result</h2>
 <h3> Descriptive Analysisis</h3>
-Summary Statistic:
-<img src="usecase(1).png">
+Summary Statistic:<br>
+<img src="summary.PNG"><br>
 correlation between Number of items that success in transactions and other feature<br>
+<p align="center">
+<img src="price_store_qty.png" width="500" height="300"><br>
+  </p>
 Prices that have the most sales are in the range of Rp.2,000-2300. However, there are few sales at prices of more than Rp.4,000. price is quite influential on sales. <br>
 The store with the most sales is store B. needs to be seen further what makes store B have the most sales.<br>
 
 Trend Sales
-<img src="usecase(1).png">
+<p align="center">
+<img src="date&qty.png" width="500" height="300"><br>
+  </p>
 The number of items that success in transactions decreased at the end of 2016 and at the beginning of 2017 was almost stable and decreased again until early 2019.<br>
 Trend Sales based on Store
-<img src="usecase(1).png">
+<p align="center">
+<img src="total_sales.png" width="500" height="300">
+  </p>
 The number of items that success in transactions in store A began to decline in mid-2017, while in Stores B and C the trend was the same as the overall sales. <br>
 
-Does the promo item and card promo affect the number of items that success in transactions.
-<img src="usecase(1).png">
-<img src="usecase(1).png">
+Does the promo item and card promo affect the number of items that success in transactions?
+<p align="center">
+<img src="promocard_qty.png" width="500" height="300">
+<img src="promoItem_qty.png" width="500" height="300">
+  </p>
 Lets check top 10 the highers number of items sales.
-<img src="usecase(1).png">
-<img src="usecase(1).png">
-<img src="usecase(1).png">
+<p align="center">
+<img src="top10.PNG" >
+<img src="top10_2.PNG" >
+<img src="top10_3.PNG" >
+  </p>
 Toko B has more sales because it has more promos.
 
 <h3> Statistic Test </h3>
 Does the promo item and card promo affect the number of items that success in transactions?
-<img src="usecase(1).png">
+<p align="center">
+<img src="glm.PNG">
+  </p>
 The existence of promo items will increase the chance of increasing the number of items sold, this opportunity is significant in the real level of 0.01 and the presence of promo cards will increase the number of items sold, this opportunity is significant in the significance level of 0.01. then the existence of both will increase the chance of increasing the number of items sold, but this opportunity is not significant in the significance level of 0.01.
 
 Check the relationship between variables, whether interdependent:
-<img src="usecase(1).png">
+<p align="center">
+<img src="chi_square.PNG" width="500" height="300">
+  </p>
 p-Value less than the significance level of 0.01., i conclude that the two variables are dependent.<br>
 
 Sales Forecasting
-<img src="usecase(1).png">
+<p align="center">
+<img src="arima.png" width="500" height="300">
+  </p>
 Estimated sales of 2019-2022 will decrease and increase. This estimate is based on data from previous years.
 
 <h3> Conclusion </h3>
