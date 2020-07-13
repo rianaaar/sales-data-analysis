@@ -125,10 +125,11 @@ summary(data_sales)
 table(data_sales$transaction, data_sales$promo_card)
 xtabs(~transaction + promo_item, data = data_sales)
 #
-modeling <- glm(transaction ~ promo_item+promo_card , data = data_sales, family = "binomial") #Regresi Logisitik Biner
+modeling <- glm(transaction ~ promo_item+promo_card+promo_item*promo_card , data = data_sales, family = "binomial") #Regresi Logisitik Biner
 summary(modeling)
 chisq.test(data_sales$transaction,data_sales$promo_item,correct=FALSE)
 chisq.test(data_sales$transaction,data_sales$promo_card,correct=FALSE)
+chisq.test(data_sales$promo,data_sales$promo_card,correct=FALSE)
 ggplot() + geom_point(data=data_sales, aes(x=promo_card, y=qty,
                             colour=transaction), fill="red", size=1)
 ## forcast
