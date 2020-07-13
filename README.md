@@ -29,12 +29,12 @@ correlation between Number of items that success in transactions and other featu
 Prices that have the most sales are in the range of Rp.2,000-2300. However, there are few sales at prices of more than Rp.4,000. price is quite influential on sales. <br>
 The store with the most sales is store B. needs to be seen further what makes store B have the most sales.<br>
 
-Trend Sales
+<b>Trend Sales</b>
 <p align="center">
 <img src="date&qty.png" width="500" height="300"><br>
   </p>
 The number of items that success in transactions decreased at the end of 2016 and at the beginning of 2017 was almost stable and decreased again until early 2019.<br>
-Trend Sales based on Store
+<b> Trend Sales based on Store </b>
 <p align="center">
 <img src="total_sales.png" width="500" height="300">
   </p>
@@ -66,7 +66,7 @@ Check the relationship between variables, whether interdependent:
   </p>
 p-Value less than the significance level of 0.01., i conclude that the two variables are dependent.<br>
 
-Sales Forecasting
+<h3>Sales Forecasting</h3>
 <p align="center">
 <img src="arima.png" width="500" height="300">
   </p>
